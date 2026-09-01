@@ -6,7 +6,9 @@ counterthree = 0
 counterfour = 0
 counterfive = 0
 countersix = 0
-n = 100000
+
+
+n = int(input("How many times would you like to roll the dice? "))
 
 for i in range (n) : 
  number = random.randint (1, 6)
