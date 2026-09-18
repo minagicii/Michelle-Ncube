@@ -1,6 +1,6 @@
 # Coding Projects - Michelle Ncube 
 
-Below is a list of my coding projects where I briefly highlight what each file consists of. Files are in order of increasing difficulty.
+Below is a list of my coding projects I have completed.
 
 
 ----
