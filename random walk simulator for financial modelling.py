@@ -1,18 +1,21 @@
-import random 
+import random
+import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
-above = 0
-below = 0
-equal = 0
 max = 0
 min = 0
-
 all_results = []
 
-for i in range(100):
+for i in range(2000): # 2000 random walks/trials
     position = 0
 
-    for j in range (100):
-        step = random.randint(0,1)
+    if i%100 == 0:
+        print("Running simulation ", i, " of 2000") # iteratively checks if every 100th trial has been completed, printing progress to the terminal
+
+    for j in range (200): # 200 steps in each walk/trial
+        step = random.randint(0,1) # randomly generates numbers '0' or '1'
         if step == 0:
             position += 1
         elif step == 1:
@@ -22,27 +25,20 @@ for i in range(100):
                 max = position 
         elif position < min :
                 min = position
-        
-    if position > 0 :
-        above += 1
-    elif position < 0 :
-        below += 1 
-    else : 
-        equal += 1
 
     all_results.append(position)
-    all_results. sort()
+    all_results.sort()
 
-bottom = all_results [5]
-top = all_results [95]
+# plotting the histogram displaying final positions of the random walks
 
+plt.hist(all_results, edgecolor= 'black', bins=30)
+plt.title("1D Random Walk Histogram")
+plt.xlabel("Final Position")
+plt.ylabel("Frequency of Final Positions")
 
-print(" Position :" , str(position))
-print ("Ended above zero: ", above, " times")
-print ("Ended below zero: ", below, " times")
-print ("max position: ", max)
-print ("min position: ", min)
-print ("All results: ", all_results)
-print ("Bottom 5%: ", bottom)
-print ("Top 5%: ", top)
-print ("95% of the time, the position is between ", bottom, " and ", top)
+# statistics
+print('sample mean:', np.mean(all_results))
+print('sample standard deviation:', np.std(all_results))
+print('Min position: ', min)
+print('Max position: ', max)
+plt.show()
