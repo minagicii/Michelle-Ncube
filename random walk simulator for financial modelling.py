@@ -1,44 +1,34 @@
-import random
 import numpy as np
+from numpy import random
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-max = 0
-min = 0
-all_results = []
+x = np.random.randint(0,2, size =(2000,200))
+y = np.zeros((2000,1))
 
-for i in range(2000): # 2000 random walks/trials
-    position = 0
+transform_x = 2*x - 1
+new_array = np.concatenate((y, transform_x), axis = 1) #renders starting position for each trial to be zero
+steps = np.cumsum(new_array, axis = 1) 
+ 
+threshold = int(input("Enter threshold value: ")) #value where the position of walk is 'ruined'
+broadcast = steps <= threshold
+collapsed = np.any(broadcast, axis = 1)
 
-    if i%100 == 0:
-        print("Running simulation ", i, " of 2000") # iteratively checks if every 100th trial has been completed, printing progress to the terminal
+ruin_probability = np.mean(collapsed)*100
 
-    for j in range (200): # 200 steps in each walk/trial
-        step = random.randint(0,1) # randomly generates numbers '0' or '1'
-        if step == 0:
-            position += 1
-        elif step == 1:
-            position += -1 
-
-        if position > max :
-                max = position 
-        elif position < min :
-                min = position
-
-    all_results.append(position)
-    all_results.sort()
+data = np.array(steps[:,-1]) 
 
 # plotting the histogram displaying final positions of the random walks
-
-plt.hist(all_results, edgecolor= 'black', bins=30)
+plt.hist(data, edgecolor= 'black', bins=30)
 plt.title("1D Random Walk Histogram")
 plt.xlabel("Final Position")
 plt.ylabel("Frequency of Final Positions")
 
 # statistics
-print('sample mean:', np.mean(all_results))
-print('sample standard deviation:', np.std(all_results))
-print('Min position: ', min)
-print('Max position: ', max)
+print('sample mean:', np.mean(data))
+print ("Ruin probability: ", ruin_probability)
+print('sample standard deviation:', np.std(data))
+print('Min position: ', min(data))
+print('Max position: ', max(data))
 plt.show()
