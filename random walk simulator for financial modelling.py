@@ -4,8 +4,8 @@ import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-x = np.random.randint(0,2, size =(2000,200))
-y = np.zeros((2000,1))
+x = np.random.randint(0,2, size =(50000,200))
+y = np.zeros((50000,1))
 
 transform_x = 2*x - 1
 new_array = np.concatenate((y, transform_x), axis = 1) #renders starting position for each trial to be zero
@@ -24,7 +24,6 @@ plt.hist(data, edgecolor= 'black', bins=30)
 plt.title("1D Random Walk Histogram")
 plt.xlabel("Final Position")
 plt.ylabel("Frequency of Final Positions")
-
 # statistics
 print('sample mean:', np.mean(data))
 print ("Ruin probability: ", ruin_probability)
